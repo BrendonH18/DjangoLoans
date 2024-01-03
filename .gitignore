@@ -1,0 +1,4 @@
+.vscode/launch.json
+backend/backend/db.sqlite3
+__pycache__/
+backend/backend/secret_key.txt
