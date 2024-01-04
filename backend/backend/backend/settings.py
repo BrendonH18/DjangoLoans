@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+INSTALLED_APPS: list[str] = [
     'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,7 +56,7 @@ CHANNEL_LAYERS = {
     }
 }
 
-MIDDLEWARE = [
+MIDDLEWARE: list[str] = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -67,7 +67,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
+CORS_ALLOWED_ORIGINS: list[str] = [
     'http://localhost:5173'
 ]
 
@@ -78,7 +78,7 @@ AUTH_USER_MODEL = "Users.CustomUser"
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'Users.tokenauthentication.JWTAuthentication'
-    ]
+    ],
 }
 
 TEMPLATES = [

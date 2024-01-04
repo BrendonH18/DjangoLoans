@@ -23,6 +23,7 @@ urlpatterns = [
     path('users/', include(('Users.urls', 'Users'), namespace='Users')),
     # path('register/', register_user, name="register"),
     # path('login/', login, name="login")
+    path('api/chat/', include(('chat.urls', 'chat'), namespace='chat')),
 
 
 ]
