@@ -4,6 +4,7 @@ from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from channels.db import database_sync_to_async
 from datetime import datetime, timedelta
 
 User = get_user_model()
@@ -37,6 +38,19 @@ class JWTAuthentication(BaseAuthentication):
         if auth_header and auth_header.startswith('Bearer '):
             return auth_header.split(' ')[1]
         return None
+    
+    @database_sync_to_async
+    def authenticate_websocket(self, scope, token):
+        try:
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
+            self.verify_token(payload=payload)
+            user_id = payload['id']
+            user = User.objects.get(id=user_id)
+            return user
+        except (InvalidTokenError, ExpiredSignatureError, User.DoesNotExist):
+            raise AuthenticationFailed("Invalid token")
+
+
     
     @staticmethod
     def generate_token(payload):  # sourcery skip: aware-datetime-for-utc
