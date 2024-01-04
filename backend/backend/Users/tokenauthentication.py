@@ -45,10 +45,9 @@ class JWTAuthentication(BaseAuthentication):
             payload = jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
             self.verify_token(payload=payload)
             user_id = payload['id']
-            user = User.objects.get(id=user_id)
-            return user
-        except (InvalidTokenError, ExpiredSignatureError, User.DoesNotExist):
-            raise AuthenticationFailed("Invalid token")
+            return User.objects.get(id=user_id)
+        except (InvalidTokenError, ExpiredSignatureError, User.DoesNotExist) as e:
+            raise AuthenticationFailed("Invalid token") from e
 
 
     
@@ -56,5 +55,4 @@ class JWTAuthentication(BaseAuthentication):
     def generate_token(payload):  # sourcery skip: aware-datetime-for-utc
         expiration = datetime.utcnow() + timedelta(hours=24)
         payload['exp'] = expiration
-        token = jwt.encode(payload=payload, key=settings.SECRET_KEY, algorithm='HS256')
-        return token
+        return jwt.encode(payload=payload, key=settings.SECRET_KEY, algorithm='HS256')
