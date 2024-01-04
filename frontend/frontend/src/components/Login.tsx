@@ -14,7 +14,7 @@ export default function Login(){
     const BASE_URL = "http://127.0.0.1:8000/"
 
     const handleFormSubmit = () => {
-        fetch(`${BASE_URL}login/`,{
+        fetch(`${BASE_URL}users/login/`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,6 +24,8 @@ export default function Login(){
         .then(response => response.json())
         .then(data => {
             console.log(data)
+            const {token} = data
+            document.cookie = `token=${token}; path=/`
         })
         .catch(error => {
             console.log(error)

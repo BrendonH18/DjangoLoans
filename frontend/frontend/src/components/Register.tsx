@@ -12,7 +12,7 @@ export default function Register(){
     const BASE_URL = "http://127.0.0.1:8000/"
 
     const handleFormSubmit = () => {
-        fetch(`${BASE_URL}register/`,{
+        fetch(`${BASE_URL}users/register/`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
