@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
-
+import { useState } from 'react'
 import { TextField, Button } from '@mui/material'
+import { ILoginUser } from '../types_interfaces/types_interfaces'
 
 
 
 export default function Login(){
+    
+    
+    
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<ILoginUser>({
         'email': '',
         'password': ''
     })
@@ -14,7 +17,7 @@ export default function Login(){
     const BASE_URL = "http://127.0.0.1:8000/"
 
     const handleFormSubmit = () => {
-        fetch(`${BASE_URL}users/login/`,{
+        fetch(`${BASE_URL}api/users/login/`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

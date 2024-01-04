@@ -2,3 +2,5 @@
 backend/backend/db.sqlite3
 __pycache__/
 backend/backend/secret_key.txt
+.vite/deps_temp_27240f3f/package.json
+.vscode/tasks.json

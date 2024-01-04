@@ -1,16 +1,11 @@
 import { Box, LinearProgress, List } from '@mui/material'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import UserItem from './UserItem';
+import { IAuthUser } from '../types_interfaces/types_interfaces';
+
 
 export default function Sidebar() {
-
-    type UserType = {
-        id: number;
-        first_name: string;
-        last_name: string;
-        email: string
-    }
 
     const BASE_URL = 'http://127.0.0.1:8000/'
     const [userList, setUserList] = useState([])
@@ -48,7 +43,7 @@ export default function Sidebar() {
     <div className='sidebar'>
         {isUsersLoaded ? (
         <List sx={{width: '100%', maxWidth: 360, bgcolor: '#AAAAAA'}}>
-            {userList.map((user: UserType, index) => (
+            {userList.map((user: IAuthUser, index) => (
                 <UserItem key={index} {...user} ></UserItem>
             ))}
         </List>) : 

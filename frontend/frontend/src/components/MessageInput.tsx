@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from 'react'
+import React, { useState } from 'react'
 import { Button } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 

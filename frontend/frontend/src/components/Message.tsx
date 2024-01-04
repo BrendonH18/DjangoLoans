@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Message(props: {text:string, isSent?:boolean}) {
   return (
     <div className={`message ${props.isSent ? 'sent' : 'recieved'}`}>

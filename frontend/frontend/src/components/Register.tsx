@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { TextField, Button } from '@mui/material'
+import { IRegisterUser } from '../types_interfaces/types_interfaces'
 
 export default function Register(){
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<IRegisterUser>({
         'email': '',
         'first_name': '',
         'last_name': '',
@@ -12,7 +13,7 @@ export default function Register(){
     const BASE_URL = "http://127.0.0.1:8000/"
 
     const handleFormSubmit = () => {
-        fetch(`${BASE_URL}users/register/`,{
+        fetch(`${BASE_URL}api/users/register/`,{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

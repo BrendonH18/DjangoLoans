@@ -1,16 +1,10 @@
 import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
 import ImageIcon from '@mui/icons-material/Image'
-import React from 'react'
 import { Link } from 'react-router-dom';
+import { IAuthUser } from '../types_interfaces/types_interfaces';
 
-interface Props {
-    id: number;
-    first_name: string;
-    last_name: string;
-    email: string
-}
 
-export default function UserItem(props: Props) {
+export default function UserItem(props: IAuthUser) {
     const name = `${props.first_name} ${props.last_name}`
     const userProfileUrl = `/user/${props.id}`
   return (
@@ -21,7 +15,7 @@ export default function UserItem(props: Props) {
                     <ImageIcon></ImageIcon>
                 </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={name} secondary={props.email}/>
+            <ListItemText primary={name}/>
         </ListItem>
     </Link>
   )
