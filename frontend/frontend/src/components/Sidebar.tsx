@@ -29,7 +29,6 @@ export default function Sidebar() {
             const results = conformToType(res.data, templateA)
             setUserList(results)
             setIsUsersLoaded(true)
-            console.log(results)
         })
         .catch(err => console.log("Error making API request: ", err))
     }, [])

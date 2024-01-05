@@ -6,7 +6,7 @@ class PersonalChatConsumer(AsyncWebsocketConsumer):
         request_user = self.scope['user']
         if not request_user.is_authenticated:
             return
-        chat_with_user = self.scope['url_route']['kwargs']['id']
+        chat_with_user = self.scope['url_route']['kwargs']['chatroom_id']
         user_ids = [int(request_user.id), int(chat_with_user)]
         user_ids = sorted(user_ids)
         self.room_group_name = f"chat_{user_ids[0]}-{user_ids[1]}"
