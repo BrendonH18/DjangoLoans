@@ -34,7 +34,7 @@ export type TApiLoginResponse = TBaseApiResponse & {
     'message': string;
     'token': string;
     'user': {
-        'email': string;
+        // 'email': string;
         'id': string;
     }
 }

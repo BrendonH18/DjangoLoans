@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { TextField, Button } from '@mui/material'
-import { IApiLoginResponse, ILoginUser, setLocalStorageItem } from '../types_interfaces/types_interfaces'
+import { IApiLoginResponse, ILoginUser, conformToType, setLocalStorageItem } from '../types_interfaces/types_interfaces'
 
 
 
@@ -22,8 +22,15 @@ export default function Login(){
         })
         .then(response => response.json())
         .then((data: IApiLoginResponse) => {
-            console.log(data)
-            const {token, user} = data
+            const template: IApiLoginResponse = {
+                message: "",
+                token: "",
+                user: {
+                    id: ""
+                }
+            }
+            const results = conformToType(data, template)
+            const {token, user} = results
             setLocalStorageItem('token', token)
             setLocalStorageItem('id', user.id)
         })

@@ -25,7 +25,7 @@ export default function Sidebar() {
             }
         })
         .then(res => {
-            const templateA: IAuthUsers = [{avatar: "null", first_name: 'Template', last_name: 'Template', id: 0}]
+            const templateA: IAuthUsers = [{avatar: "Template", first_name: 'Template', last_name: 'Template', id: 0}]
             const results = conformToType(res.data, templateA)
             setUserList(results)
             setIsUsersLoaded(true)
