@@ -2,26 +2,19 @@ import { Box, LinearProgress, List } from '@mui/material'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import UserItem from './UserItem';
-import { IAuthUser } from '../types_interfaces/types_interfaces';
-
+import { IAuthUser, getLocalStorageItem, conformToType } from '../types_interfaces/types_interfaces';
+interface IAuthUsers extends Array<IAuthUser> {}
 
 export default function Sidebar() {
-
     const BASE_URL = 'http://127.0.0.1:8000/'
-    const [userList, setUserList] = useState([])
-    const [isUsersLoaded, setIsUsersLoaded] = useState(false)
-    const getAuthTokenFromCookie = () => {
-        const cookies = document.cookie.split(';')
-
-        for (let i = 0; i < cookies.length; i++) {
-            const [name, value] = cookies[i].trim().split('=');
-            if (name === 'token') {return value}
-        }
-        return null
+    const [userList, setUserList] = useState<IAuthUsers>([])
+    const [isUsersLoaded, setIsUsersLoaded] = useState<Boolean>(false)
+    const getAuthTokenFromLocalStorage = () => {
+        return getLocalStorageItem('token')
     }
 
     useEffect(() => {
-        const authToken = getAuthTokenFromCookie()
+        const authToken = getAuthTokenFromLocalStorage()
         if (!authToken) {
             console.log("No token")
             return
@@ -32,9 +25,11 @@ export default function Sidebar() {
             }
         })
         .then(res => {
-            setUserList(res.data)
+            const templateA: IAuthUsers = [{avatar: "null", first_name: 'Template', last_name: 'Template', id: 0}]
+            const results = conformToType(res.data, templateA)
+            setUserList(results)
             setIsUsersLoaded(true)
-            console.log(res.data)
+            console.log(results)
         })
         .catch(err => console.log("Error making API request: ", err))
     }, [])

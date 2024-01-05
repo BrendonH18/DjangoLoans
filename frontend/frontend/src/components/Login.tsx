@@ -1,14 +1,10 @@
 import { useState } from 'react'
 import { TextField, Button } from '@mui/material'
-import { ILoginUser } from '../types_interfaces/types_interfaces'
+import { IApiLoginResponse, ILoginUser, setLocalStorageItem } from '../types_interfaces/types_interfaces'
 
 
 
 export default function Login(){
-    
-    
-    
-
     const [formData, setFormData] = useState<ILoginUser>({
         'email': '',
         'password': ''
@@ -25,10 +21,11 @@ export default function Login(){
             body: JSON.stringify(formData)
         })
         .then(response => response.json())
-        .then(data => {
+        .then((data: IApiLoginResponse) => {
             console.log(data)
-            const {token} = data
-            document.cookie = `token=${token}; path=/`
+            const {token, user} = data
+            setLocalStorageItem('token', token)
+            setLocalStorageItem('id', user.id)
         })
         .catch(error => {
             console.log(error)
